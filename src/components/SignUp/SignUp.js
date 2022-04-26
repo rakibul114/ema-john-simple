@@ -1,11 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './SignUp.css';
+import googleIcon from '../../images/google.png';
 
 const SignUp = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const handleEmailBlur = event => {
+        setEmail(event.target.value);
+    };
+
+    const handlePassword = event => {
+        setPassword(event.target.value);
+    };
+
+    const handleConfirmPassword = event => {
+        setConfirmPassword(event.target.value);
+    };
+
+    const handleCreateUser = event => {
+        event.preventDefault();
+        if (password !== confirmPassword) {
+            setError('Your two passwords did not matched');
+            return;
+        }
+    };
+
     return (
+      <div className="form-container">
         <div>
-            <h1>Please signup</h1>
+          <form onSubmit={handleCreateUser}>
+            <h1 className="form-title">Sign Up</h1>
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <input
+                onBlur={handleEmailBlur}
+                type="email"
+                name="email"
+                id=""
+                required
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <input
+                onBlur={handlePassword}
+                type="password"
+                name="password"
+                id=""
+                required
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="password">Confirm Password</label>
+              <input
+                onBlur={handleConfirmPassword}
+                type="password"
+                name="confirm-password"
+                id=""
+                required
+              />
+                    </div>
+                    <p style={{color:'red'}}>{error}</p>
+            <input className="login-button" type="submit" value="Sign Up" />
+          </form>
+          <p>
+            Already have an account?{" "}
+            <Link className="form-link" to="/login">
+              Login
+            </Link>
+          </p>
+          <div className="bar-container">
+            <hr className="bar1" /> <span className="bar-text">or</span>{" "}
+            <hr className="bar2" />
+          </div>
+          <div>
+            <button className="google-button">
+              <img src={googleIcon} alt="" />
+              Continue with Google
+            </button>
+          </div>
         </div>
+      </div>
     );
 };
 

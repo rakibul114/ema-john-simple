@@ -20,7 +20,7 @@
 }
 .input-group label{
     display: block; 
-    margin-left: 5px;   
+    margin-left: 5px;       
 }
 .input-group input{
     width: 415px;
@@ -42,7 +42,11 @@
     font-weight: 400;
     font-size: 21px;
     color: #0E161A;
-    cursor: pointer;    
+    cursor: pointer;
+    transition: 0.4s;    
+}
+.login-button:hover{
+    background-color: orange;
 }
 .form-link{
     color: #FF9900;
@@ -65,4 +69,22 @@
 }
 .bar-text{
     color: #95A0A7;
+}
+.google-button{
+    width: 415px;
+    height: 55px;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid rgba(149, 160, 167, 1);
+    border-radius: 5px;
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.google-button img{
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
 }
