@@ -1,22 +1,64 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import googleIcon from '../../images/google.png';
+import auth from '../../firebase.init';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const navigate = useNavigate();
+
+  const handleEmailBlur = event => {
+    setEmail(event.target.value);
+  };
+
+  const handlePassword = event => {
+    setPassword(event.target.value);
+  };
+
+  if (user) {
+    navigate('/shop');
+  }
+
+  const handleUserSignIn = event => {
+    event.preventDefault();
+    signInWithEmailAndPassword(email, password);
+  };
+
+
     return (
       <div className="form-container">
         <div>
-          <form>
+          <form onSubmit={handleUserSignIn}>
             <h1 className="form-title">Login</h1>
             <div className="input-group">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="" required />
+              <input
+                onBlur={handleEmailBlur}
+                type="email"
+                name="email"
+                id=""
+                required
+              />
             </div>
             <div className="input-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" id="" required />
+              <input
+                onBlur={handlePassword}
+                type="password"
+                name="password"
+                id=""
+                required
+              />
             </div>
+            <p style={{ color: 'red' }}>{error?.message}</p>
+            {
+              loading && <p>Loading...</p>
+            }
+
             <input className="login-button" type="submit" value="Login" />
           </form>
           <p>
